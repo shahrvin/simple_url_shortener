@@ -32,7 +32,7 @@ def create_db_url(db: Session, url: schemas.URLBase) -> models.URL:
 def get_db_url_by_secret(db:Session, secret_key:str) -> models.URL:
     return(db.query(models.URL).filter(models.URL.secret_key == secret_key, models.URL.is_active).first())
 
-def deactivate_db_url_by_secret(db:Session, secret_key:str):
+def disable_db_url_by_secret(db:Session, secret_key:str):
     db_url = get_db_url_by_secret(db=db, secret_key=secret_key)
     if db_url:
         db_url.is_active = False

@@ -91,10 +91,10 @@ def get_urls(db: Session = Depends(get_db)):
     
     return urls
 
-@app.delete("/admin/{secret_key}")
-def delete_url(secret_key:str, request: Request, db:Session = Depends(get_db)):
+@app.post("/admin/{secret_key}")
+def disable_url(secret_key:str, request: Request, db:Session = Depends(get_db)):
     if db_url := crud.deactivate_db_url_by_secret(db=db, secret_key=secret_key):
-        message = f"Succesfuly deleted shortened url for '{db_url.target_url}'"
+        message = f"Succesfuly disabled shortened url for '{db_url.target_url}'"
         return {"detail": message}
     else: 
         raise_not_found(request)
